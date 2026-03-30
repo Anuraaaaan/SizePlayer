@@ -1,0 +1,11 @@
+name: SizePlayer
+version: '${project.version}'
+main: com.anuran.sizeplayer.SizePlayer
+api-version: '1.21'
+commands:
+  sizeplayer:
+    usage: /<command> <levelSize>
+    permission: size-player.sizeplayer
+  sizereload:
+    usage: /<command>
+    permission: size-player.sizereload

@@ -1,16 +1,97 @@
-version: 1
+version: 2
 
-#message in the console
-console-message: "&4This command can only be entered by the player."
+# ==================== SIZE AND HEALTH SETTINGS ====================
+# These parameters determine how the player's size affects their health
+values:
+  # Minimum possible player size. In vanilla, the minimum value is 0.0625
+  min_value: 0.4
+  # Maximum possible player size. In vanilla, the maximum value is 16
+  max_value: 10
 
-#message if permission is not granted
-no-permissions: "&4You don't have enough rights"
+  # ==================== HEALTH FORMULAS ====================
+  # Variable:
+  #   x — player size (e.g., 0.4, 1, 2, 10, etc.)
+  #
+  # The formula must return a number — the amount of health.
+  #
+  # Example: 20 * x
+  #   At x = 1 → 20 hearts
+  #   At x = 0.5 → 10 hearts
+  # ---------------------------------------------------------
+  # SUPPORTED OPERATIONS:
+  #   +   addition
+  #   -   subtraction
+  #   *   multiplication
+  #   /   division
+  #   ^   exponentiation
+  # ---------------------------------------------------------
+  # SUPPORTED FUNCTIONS (exp4j):
+  # Roots:
+  #   sqrt(x)   — square root
+  #   cbrt(x)   — cube root
+  # Trigonometry:
+  #   sin(x)
+  #   cos(x)
+  #   tan(x)
+  #   asin(x)
+  #   acos(x)
+  #   atan(x)
+  # Logarithms:
+  #   log(x)    — natural logarithm
+  #   log10(x)  — base-10 logarithm
+  # Rounding:
+  #   floor(x)  — round down
+  #   ceil(x)   — round up
+  #   round(x)  — round to nearest
+  # Absolute and misc:
+  #   abs(x)    — absolute value
+  #   min(a,b)  — minimum of two numbers
+  #   max(a,b)  — maximum of two numbers
+  # ---------------------------------------------------------
+  # CONSTANTS:
+  #   pi — Pi (3.1415926...)
+  #   e  — Euler's number (2.71828...)
+  # ---------------------------------------------------------
+  # LOGIC:
+  #
+  # The size range is split into 2 zones:
+  #
+  #   1) x < 1      → uses min_formula
+  #   2) x > 1      → uses max_formula
+  #
+  # This allows separate tuning for small and large players.
+  # ---------------------------------------------------------
 
-#message when rebooting config
-config-reloaded: "&aConfig rebooted"
+  # Formula for sizes LESS than 1
+  # Example: 20 * x → at x=0.4 health = 8 hearts
+  min_formula: "20 * x"
 
-#message when resizing.
-size-set: "&aYour size is set to %.1f"
+  # Formula for sizes GREATER than 1
+  # Example: 2.22222 * x + 17.77778 → at x=10 health ≈ 40 hearts
+  max_formula: "2.22222 * x + 17.77778"
 
-#message when value is incorrect
-invalid-range: "&4The size value is outside the range from 0.4 to 10.0"
+# ==================== MESSAGES ====================
+# All messages support color codes in &#RRGGBB format (e.g., &#138808 — green)
+# Placeholders only apply in the messages where they are specified:
+# %min_value%, %max_value%, %player_target%, %player_sender%
+messages:
+  # ----- Plugin status -----
+  plugin_enable: '&#138808Plugin enabled'
+  plugin_disable: '&#ff0033Plugin disabled'
+  config_reloaded: '&#138808Config reloaded'
+
+  # ----- Permission and argument errors -----
+  console_message: '&#ff0033You are not a player'
+  no_permissions: '&#ff0033You do not have permission'
+  no_arguments: '&#ff0033You did not provide arguments or provided incomplete arguments'
+  no_online: '&#ff0033Player is not online'
+  no_number: '&#ff0033You did not enter a number'
+
+  # ----- Range and formula errors -----
+  invalid_range: '&#ff0033Your size is not within the range %min_value% - %max_value%'
+  formula_invalid: '&#ff0033The formula specified in the config is incorrect'
+
+  # ----- Successful size change -----
+  size_set_sender: '&#138808You changed the size of %player_target%'
+  size_set_target: '&#138808Your size was changed by %player_sender%'
+  size_set_own: '&#138808You changed your size'

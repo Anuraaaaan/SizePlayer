@@ -1,8 +1,10 @@
 version: 2
 
-# ==================== SIZE AND HEALTH SETTINGS ====================
-# These parameters determine how the player's size affects their health
 values:
+
+  # Language file used by the plugin.
+  # For example: ru, en.
+  lang: ru
   # Minimum possible player size. In vanilla, the minimum value is 0.0625
   min_value: 0.4
   # Maximum possible player size. In vanilla, the maximum value is 16
@@ -70,28 +72,16 @@ values:
   # Example: 2.22222 * x + 17.77778 → at x=10 health ≈ 40 hearts
   max_formula: "2.22222 * x + 17.77778"
 
-# ==================== MESSAGES ====================
-# All messages support color codes in &#RRGGBB format (e.g., &#138808 — green)
-# Placeholders only apply in the messages where they are specified:
-# %min_value%, %max_value%, %player_target%, %player_sender%
-messages:
-  # ----- Plugin status -----
-  plugin_enable: '&#138808Plugin enabled'
-  plugin_disable: '&#ff0033Plugin disabled'
-  config_reloaded: '&#138808Config reloaded'
+  scale:
+    # Whether to enable smooth player size transitions.
+    animation_enabled: true
 
-  # ----- Permission and argument errors -----
-  console_message: '&#ff0033You are not a player'
-  no_permissions: '&#ff0033You do not have permission'
-  no_arguments: '&#ff0033You did not provide arguments or provided incomplete arguments'
-  no_online: '&#ff0033Player is not online'
-  no_number: '&#ff0033You did not enter a number'
+    # Delay between animation steps, in ticks.
+    animation_interval: 1
 
-  # ----- Range and formula errors -----
-  invalid_range: '&#ff0033Your size is not within the range %min_value% - %max_value%'
-  formula_invalid: '&#ff0033The formula specified in the config is incorrect'
+    # Size change applied during each animation step.
+    # Smaller values produce smoother, slower transitions.
+    # Larger values produce faster, less smooth transitions.
+    scale_step: 0.1
 
-  # ----- Successful size change -----
-  size_set_sender: '&#138808You changed the size of %player_target%'
-  size_set_target: '&#138808Your size was changed by %player_sender%'
-  size_set_own: '&#138808You changed your size'
+

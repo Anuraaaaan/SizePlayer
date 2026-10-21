@@ -1,0 +1,23 @@
+plugin_enable: '&#138808Плагин запущен'
+plugin_disable: '&#ff0033Плагин отключен'
+config_reloaded: '&#138808Конфиг перезагружен'
+
+console_message: '&#ff0033Ты не игрок'
+no_permissions: '&#ff0033У тебя нет разрешения'
+no_arguments: '&#ff0033Вы не ввели аргументы или ввели не все аргументы'
+no_online: '&#ff0033Игрок не в сети'
+no_number: '&#ff0033Вы ввели не число'
+no_command: '&#ff0033Команда не найдена'
+
+invalid_range: '&#ff0033Твой размер не находится в диапазоне %min_value% - %max_value%'
+formula_invalid: '&#ff0033В конфиге неправильно указана формула'
+min_formula_invalid: '&#ff0033Формула для размера меньше 1 записана неверно. Использую версию до перезапуска'
+max_formula_invalid: '&#ff0033Формула для размера больше 1 записана неверно. Использую версию до перезапуска'
+min_formula_invalid_start_server: '&#ff0033Формула для размера меньше 1 записана неверно. Выключаю плагин'
+max_formula_invalid_start_server: '&#ff0033Формула для размера больше 1 записана неверно. Выключаю плагин'
+
+size_set_sender: '&#138808Ты изменил размер %player_target%'
+size_set_target: '&#138808Вам изменил размер %player_sender%'
+size_set_own: '&#138808Вы изменили размер'
+size_already_changing: '&#ff0033Подождите пока изменится рост'
+size_already_set: '&#ff0033Размер уже установлен'

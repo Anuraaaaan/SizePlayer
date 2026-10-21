@@ -1,2 +1,18 @@
-# Project exclude paths
-/target/
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Compiled files
+*.class
+*.log
+
+# Operating system
+.DS_Store
+Thumbs.db

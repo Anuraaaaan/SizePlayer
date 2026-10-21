@@ -1,54 +1,53 @@
 package com.anuran.sizeplayer;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class SizePlayer extends JavaPlugin {
 
-    public static SizePlayer plugin;
-    public static double minValue;
-    public static double maxValue;
+    private ConfigManager configManager;
 
-    public static String minFormula;
-    public static String maxFormula;
-
-    public static String getMSG(String path) {
-        return plugin.getConfig().getString(path);
-    }
+    private final Map<UUID, BukkitTask> changingPlayers = new HashMap<>();
 
     @Override
     public void onEnable() {
-        plugin = this;
-        saveDefaultConfig();
+        configManager = new ConfigManager(this);
+        configManager.loadConfig();
 
-        // регистрация конфига
-        Messages.register();
+        Objects.requireNonNull(getServer().getPluginCommand("sizeplayer")).setExecutor(new SizePlayerCMD(this, configManager, changingPlayers));
 
-        // регистрация команд
+        this.getServer().getPluginManager().registerEvents(new PlayerUUIDRemover(changingPlayers), this);
 
-        Objects.requireNonNull(getServer().getPluginCommand("sizeplayer")).setExecutor(new SizePlayerCMD());
+        getLogger().info(colorize(configManager.getLangMap().get("plugin_enable")));
 
-        minValue = getConfig().getDouble("values.min_value");
-        maxValue = getConfig().getDouble("values.max_value");
-
-        minFormula = getConfig().getString("values.min_formula");
-        maxFormula = getConfig().getString("values.max_formula");
-        getLogger().info(colorize(getConfig().getString("messages.plugin_enable")));
+        try {
+            Expression expressionMinFormula = new ExpressionBuilder(configManager.getMinFormula()).variable("x").build();
+            expressionMinFormula.setVariable("x", 0.4).evaluate();
+        } catch (IllegalArgumentException | ArithmeticException e) {
+            this.getLogger().warning(SizePlayer.colorize(configManager.getLangMap().get("min_formula_invalid_start_server")));
+            this.getServer().getPluginManager().disablePlugin(this);
+        }
+        try {
+            Expression expressionMaxFormula = new ExpressionBuilder(configManager.getMaxFormula()).variable("x").build();
+            expressionMaxFormula.setVariable("x", 2).evaluate();
+        } catch (IllegalArgumentException | ArithmeticException e) {
+            this.getLogger().warning(SizePlayer.colorize(configManager.getLangMap().get("max_formula_invalid_start_server")));
+            this.getServer().getPluginManager().disablePlugin(this);
+        }
 
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(colorize(getConfig().getString("messages.plugin_disable")));
+        getLogger().info(colorize(configManager.getLangMap().get("plugin_disable")));
         // Plugin shutdown logic
-    }
-
-    public static SizePlayer getPlugin() {
-        return plugin;
     }
 
     public static String colorize(String message) {

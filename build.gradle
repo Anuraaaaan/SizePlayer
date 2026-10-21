@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.anuran'
-version = '2.0'
+version = '2.1'
 
 repositories {
     mavenCentral()
@@ -18,6 +18,8 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation("net.objecthunter:exp4j:0.4.8")
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 tasks {
@@ -62,7 +64,6 @@ shadowJar {
     // Объединяет файлы сервисов (META-INF/services/*)
     mergeServiceFiles()
 
-    // Указываем стратегию для файлов лицензий и уведомлений
     filesMatching("META-INF/DEPENDENCIES") {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
@@ -73,7 +74,6 @@ shadowJar {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 
-    // Глобальная стратегия для остальных дубликатов (можно оставить EXCLUDE)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

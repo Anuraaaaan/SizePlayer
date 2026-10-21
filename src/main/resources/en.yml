@@ -1,0 +1,23 @@
+plugin_enable: '&#138808Plugin enabled'
+plugin_disable: '&#ff0033Plugin disabled'
+config_reloaded: '&#138808Configuration reloaded'
+
+console_message: '&#ff0033You must be a player'
+no_permissions: '&#ff0033You do not have permission'
+no_arguments: '&#ff0033You did not provide any arguments or some arguments are missing'
+no_online: '&#ff0033Player is not online'
+no_number: '&#ff0033You did not enter a valid number'
+no_command: '&#ff0033Command not found'
+
+invalid_range: '&#ff0033Your size must be within the range %min_value% - %max_value%'
+formula_invalid: '&#ff0033The formula in the configuration is invalid'
+min_formula_invalid: '&#ff0033The formula for sizes below 1 is invalid. Using the previous version until restart'
+max_formula_invalid: '&#ff0033The formula for sizes above 1 is invalid. Using the previous version until restart'
+min_formula_invalid_start_server: '&#ff0033The formula for sizes below 1 is invalid. Disabling the plugin'
+max_formula_invalid_start_server: '&#ff0033The formula for sizes above 1 is invalid. Disabling the plugin'
+
+size_set_sender: '&#138808You changed %player_target%''s size'
+size_set_target: '&#138808%player_sender% changed your size'
+size_set_own: '&#138808You changed your size'
+size_already_changing: '&#ff0033Please wait while your size is being changed'
+size_already_set: '&#ff0033This size is already set'

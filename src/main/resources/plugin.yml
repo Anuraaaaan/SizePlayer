@@ -1,17 +1,22 @@
 name: SizePlayer
-version: '2.0'
+version: '2.1'
 main: com.anuran.sizeplayer.SizePlayer
 api-version: '1.21'
+authors: [anuraaaan]
 commands:
   sizeplayer:
-    description: Команда плагина
+    description: Plugin command
+    aliases:
+      - sp
+      - sizep
+      - splayer
 permissions:
-  sizeplayer.own:
-    description: Изменить рост себе
-    default: false
   sizeplayer.set:
-    description: Изменить рост другим
-    default: false
+    description: Change your own size
+    default: op
+  sizeplayer.set.names:
+    description: Change other players' size
+    default: op
   sizeplayer.reload:
-    description: Перезагрузить плагин
-    default: false
+    description: Reload the plugin
+    default: op
